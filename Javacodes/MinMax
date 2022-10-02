@@ -1,0 +1,47 @@
+ import java.util.*;
+ class Main {
+     //////////for max
+   public int max(int [] array) {
+      int max = 0;
+     
+      for(int i=0; i<array.length; i++ ) {
+         if(array[i]>max) {
+            max = array[i];
+         }
+      }
+      return max;
+   }
+   ///////////for min
+   public int min(int [] array) {
+      int min = array[0];
+     
+      for(int i=0; i<array.length; i++ ) {
+         if(array[i]<min) {
+            min = array[i];
+         }
+      }
+      return min;
+   }
+   public static void main(String args[]) {
+       Scanner sc=new Scanner(System.in);
+       int n;
+       System.out.println("enter the number of element you want to enter");
+       n=sc.nextInt();
+       if(n<=0){
+                  System.out.println("enter correct input");
+
+       }
+       else{
+      int[] myArray = new int[n];
+             System.out.println("enter the element in array");
+             /////////input in array
+
+      for(int i=0;i<n;i++){
+          myArray[i]=sc.nextInt();
+      }
+      Main m = new Main();
+      System.out.println("Maximum value in the array is::"+m.max(myArray));
+      System.out.println("Minimum value in the array is::"+m.min(myArray));
+   }
+   }
+}
