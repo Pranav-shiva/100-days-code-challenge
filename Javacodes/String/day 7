@@ -1,4 +1,8 @@
 /////// to check weather the given string is palindrome or not
+//// input:hello
+////output: hello is not palindrome
+//// input:arra
+////output: hello is  palindrome
 package myprojects;
 
 import java.util.Scanner;
