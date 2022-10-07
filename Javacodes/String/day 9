@@ -1,0 +1,28 @@
+/////reverse words in a given string in java
+////input: pranav shiva
+/////output:shiva pranav
+////test case string is null
+import java.util.Scanner;
+public class Main {
+   public static void main(String[] args) {
+      String str="" ;
+      Scanner sc= new Scanner(System.in);
+      System.out.print("enter the string");
+     str=sc.nextLine();
+     if(str.equals("")){
+         System .out.print("string is empty");
+     }
+     else{
+     
+      String[] temp = str.split("\\s");
+      String rev = "";
+      for (int i = 0; i < temp.length; i++) {
+         if (i == temp.length - 1)
+         rev = temp[i] + rev;
+         else
+         rev = " " + temp[i] + rev;
+      }
+      System.out.println("The reversed string is: " + rev);
+   }
+   }
+}
