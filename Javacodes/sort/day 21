@@ -1,0 +1,46 @@
+////selection sorting
+////input 1 6 2 3 4 
+////output 1 2 3 4 6 
+////test case 
+/// if size of array is less than equals to zero
+    
+import java.util.*;
+public class Main {  
+    public static void selectionSort(int[] arr){  
+        for (int i = 0; i < arr.length - 1; i++)  
+        {  
+            int index = i;  
+            for (int j = i + 1; j < arr.length; j++){  
+                if (arr[j] < arr[index]){  
+                    index = j;//searching for lowest index  
+                }  
+            }  
+            int smallerNumber = arr[index];   
+            arr[index] = arr[i];  
+            arr[i] = smallerNumber;  
+        }  
+    }  
+       
+    public static void main(String a[]){  
+        Scanner sc=new Scanner(System.in);
+        System.out.println("enter the size array");
+        int n=sc.nextInt();
+        if(n<=0){
+            System.out.println("invalid input");
+        }
+        else{
+        int arr[] =new int[n];
+        System.out.println("enter the element");
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+          
+        selectionSort(arr);//sorting array using selection sort  
+         
+        System.out.println("After Selection Sort");  
+        for(int i:arr){  
+            System.out.print(i+" ");  
+        }  
+    }  
+    }
+} 
