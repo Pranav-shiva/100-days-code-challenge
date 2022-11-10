@@ -1,0 +1,80 @@
+// Java program to find the Minimum length Unsorted Subarray,
+// sorting which makes the complete array sorted
+// input 5 1 6 7 8 9 
+// output : The unsorted subarray which makes the given array sorted lies in between the indices 0 and 1
+import java.util.Scanner;
+class Main
+{
+	static void printUnsorted(int arr[], int n)
+	{
+	int s = 0, k = n-1, i, max, min;
+		
+	for (s = 0; s < n-1; s++)
+	{
+		if (arr[s] > arr[s+1])
+		break;
+	}
+	if (s == n-1)
+	{
+		System.out.println("The complete array is sorted");
+		return;
+	}
+		
+	for(k = n - 1; k > 0; k--)
+	{
+		if(arr[k] < arr[k-1])
+		break;
+	}
+		
+	max = arr[s]; min = arr[s];
+	for(i = s + 1; i <= k; i++)
+	{
+		if(arr[i] > max)
+		max = arr[i];
+		if(arr[i] < min)
+		min = arr[i];
+	}
+		
+	for( i = 0; i < s; i++)
+	{
+		if(arr[i] > min)
+		{
+		s = i;
+		break;
+		}	
+	}
+		
+	for( i = n -1; i >= k+1; i--)
+	{
+		if(arr[i] < max)
+		{
+		k = i;
+		break;
+		}
+	}
+			
+	System.out.println(" The unsorted subarray which"+
+						" makes the given array sorted lies in"+
+					" between the indices "+s+" and "+k);
+	return;
+	}
+		
+	public static void main(String args[])
+	{
+	    Scanner sc= new Scanner(System.in);
+	    System.out.println("enter the size of array");
+	    int n=sc.nextInt();
+	    if(n<=0){
+	        System.out.println("invalid input");
+	        return;
+	    }
+	    	        System.out.println("enter the element");
+
+	int arr[] = new int[n];
+	for(int i=0;i<n;i++){
+	    arr[i]=sc.nextInt();
+	}
+	int arr_size = arr.length;
+	printUnsorted(arr, arr_size);
+	}
+}
