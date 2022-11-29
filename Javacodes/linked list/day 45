@@ -1,0 +1,66 @@
+// to find middle node in linked list
+//input 1 2 3 4 5 
+//output 3
+class Main
+{ 
+    static Node head;
+    private class Node 
+    { 
+        int data; 
+        Node next;
+        Node(int d) 
+        { 
+            data = d; 
+            next = null; 
+        } 
+    } 
+    static int count()
+    {
+        Node temp = head;
+        int count = 0;
+        while(temp != null)
+        {
+            ++ count;
+            temp = temp.next;
+        }
+        return count;
+    }
+    void middle_element(int count) 
+    { 
+        int middle = count/2;
+        Node temp = head;
+        while(middle>0)
+        {
+            -- middle;
+            temp = temp.next;
+        }
+        System.out.println("The middle element is " + temp.data ); 
+    } 
+    public void add(int data) 
+    { 
+        Node new_node = new Node(data);
+        new_node.next = head; 
+        head = new_node; 
+    } 
+    public void print_list() 
+    { 
+        Node temp = head; 
+        while (temp != null) 
+        { 
+            System.out.print(temp.data+"->"); 
+            temp = temp.next; 
+        } 
+        System.out.println("NULL"); 
+    } 
+    public static void main(String [] args) 
+    { 
+        Main list = new Main(); 
+        for (int i=0; i<=10; i++) 
+        { 
+            list.add(i); 
+            list.print_list(); 
+            int count = count();
+            list.middle_element(count); 
+        } 
+    } 
+} 
