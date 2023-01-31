@@ -1,0 +1,90 @@
+// java code to search element in binary search tree 
+
+import java.util.LinkedList; 
+import java.util.Queue; 
+  
+class Node { 
+    int data; 
+    Node left, right; 
+  
+    public Node(int item) { 
+        data = item; 
+        left = right = null; 
+    } 
+} 
+  
+public class BinarySearchTree { 
+  
+    // Root of BST 
+    Node root; 
+  
+    // Constructor 
+    BinarySearchTree() {  
+        root = null;  
+    } 
+  
+    // This method mainly calls insertRec() 
+    void insert(int key) { 
+       root = insertRec(root, key); 
+    } 
+      
+    /* A recursive function to insert a new key in BST */
+    Node insertRec(Node root, int key) { 
+  
+        /* If the tree is empty, return a new node */
+        if (root == null) { 
+            root = new Node(key); 
+            return root; 
+        } 
+  
+        /* Otherwise, recur down the tree */
+        if (key < root.data) 
+            root.left = insertRec(root.left, key); 
+        else if (key > root.data) 
+            root.right = insertRec(root.right, key); 
+  
+        return root; 
+    } 
+  
+    void inorder()  { 
+       inorderRec(root); 
+    } 
+  
+    void inorderRec(Node root) { 
+        if (root != null) { 
+            inorderRec(root.left); 
+            System.out.println(root.data); 
+            inorderRec(root.right); 
+        } 
+    } 
+  
+    public static boolean search(Node root, int key) 
+    { 
+        if (root==null || root.data==key) 
+            return true; 
+  
+       if (root.data > key) 
+            return search(root.left, key); 
+  
+        return search(root.right, key); 
+    } 
+  
+    public static void main(String[] args) { 
+        BinarySearchTree tree = new BinarySearchTree(); 
+  
+
+        tree.insert(50); 
+        tree.insert(30); 
+        tree.insert(20); 
+        tree.insert(40); 
+        tree.insert(70); 
+        tree.insert(60); 
+        tree.insert(80); 
+  
+        int key = 40; 
+        if (search(tree.root, key) == true) 
+            System.out.println("Element is present"); 
+        else
+            System.out.println("Element is not present"); 
+    } 
+}
