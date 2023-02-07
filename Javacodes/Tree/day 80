@@ -1,0 +1,65 @@
+// Java program to find maximum sum from a subset of nodes of binary tree
+import java.util.HashMap;
+public class FindSumOfNotAdjacentNodes {
+
+	public static int
+	sumOfGrandChildren(Node node, HashMap<Node, Integer> mp)
+	{
+		int sum = 0;
+	
+		if (node.left != null)
+			sum += getMaxSumUtil(node.left.left, mp)
+				+ getMaxSumUtil(node.left.right, mp);
+
+		if (node.right != null)
+			sum += getMaxSumUtil(node.right.left, mp)
+				+ getMaxSumUtil(node.right.right, mp);
+		return sum;
+	}
+'
+	public static int
+	getMaxSumUtil(Node node, HashMap<Node, Integer> mp)
+	{
+		if (node == null)
+			return 0;
+
+		if (mp.containsKey(node))
+			return mp.get(node);
+
+		int incl = node.data + sumOfGrandChildren(node, mp);
+
+		int excl = getMaxSumUtil(node.left, mp)
+				+ getMaxSumUtil(node.right, mp);
+
+		mp.put(node, Math.max(incl, excl));
+
+		return mp.get(node);
+	}
+	public static int getMaxSum(Node node)
+	{
+		if (node == null)
+			return 0;
+		HashMap<Node, Integer> mp = new HashMap<>();
+		return getMaxSumUtil(node, mp);
+	}
+	public static void main(String args[])
+	{
+		Node root = new Node(1);
+		root.left = new Node(2);
+		root.right = new Node(3);
+		root.right.left = new Node(4);
+		root.right.right = new Node(5);
+		root.left.left = new Node(1);
+		System.out.print(getMaxSum(root));
+	}
+}
+
+class Node {
+	int data;
+	Node left, right;
+	Node(int data)
+	{
+		this.data = data;
+		left = right = null;
+	}
+};
