@@ -1,0 +1,72 @@
+//Transform a BST to greater sum tree
+import java.io.*;
+class Node
+{
+int data;
+Node left, right;
+
+Node(int item)
+{
+	data = item;
+	left = right = null;
+}
+}
+
+class Tree
+{
+
+static int sum = 0;
+static Node Root;
+
+
+static void transformTreeUtil(Node root)
+{
+
+	// Base case
+	if (root == null)
+	return;
+
+	transformTreeUtil(root.right);
+
+	sum = sum + root.data;
+
+	root.data = sum - root.data;
+
+	transformTreeUtil(root.left);
+}
+
+static void transformTree(Node root)
+{
+
+	transformTreeUtil(root);
+}
+
+static void printInorder(Node root)
+{
+	if (root == null)
+	return;
+	printInorder(root.left);
+	System.out.print(root.data + " ");
+	printInorder(root.right);
+}
+
+public static void main (String[] args) {
+
+	Tree.Root = new Node(11);
+	Tree.Root.left = new Node(2);
+	Tree.Root.right = new Node(29);
+	Tree.Root.left.left = new Node(1);
+	Tree.Root.left.right = new Node(7);
+	Tree.Root.right.left = new Node(15);
+	Tree.Root.right.right = new Node(40);
+	Tree.Root.right.right.left = new Node(35);
+
+	System.out.println("Inorder Traversal of given tree");
+	printInorder(Root);
+
+	transformTree(Root);
+	System.out.println("\n\nInorder Traversal of transformed tree");
+	printInorder(Root);
+}
+}
+
