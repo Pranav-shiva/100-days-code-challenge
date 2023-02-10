@@ -1,0 +1,119 @@
+// java code for Sorted Linked List to Balanced BST
+
+class LinkedList {
+
+	static LNode head;
+	
+	class LNode
+	{
+		int data;
+		LNode next, prev;
+
+		LNode(int d)
+		{
+			data = d;
+			next = prev = null;
+		}
+	}
+	
+	class TNode
+	{
+		int data;
+		TNode left, right;
+
+		TNode(int d)
+		{
+			data = d;
+			left = right = null;
+		}
+	}
+
+	TNode sortedListToBST()
+	{
+		int n = countNodes(head);
+
+		return sortedListToBSTRecur(n);
+	}
+
+	TNode sortedListToBSTRecur(int n)
+	{
+		if (n <= 0)
+			return null;
+
+		TNode left = sortedListToBSTRecur(n / 2);
+
+		TNode root = new TNode(head.data);
+
+		root.left = left;
+
+		head = head.next;
+		root.right = sortedListToBSTRecur(n - n / 2 - 1);
+
+		return root;
+	}
+
+	int countNodes(LNode head)
+	{
+		int count = 0;
+		LNode temp = head;
+		while (temp != null)
+		{
+			temp = temp.next;
+			count++;
+		}
+		return count;
+	}
+
+	void push(int new_data)
+	{
+		LNode new_node = new LNode(new_data);
+
+		new_node.prev = null;
+
+		new_node.next = head;
+
+		if (head != null)
+			head.prev = new_node;
+
+		head = new_node;
+	}
+
+	void printList(LNode node)
+	{
+		while (node != null)
+		{
+			System.out.print(node.data + " ");
+			node = node.next;
+		}
+	}
+
+	void preOrder(TNode node)
+	{
+		if (node == null)
+			return;
+		System.out.print(node.data + " ");
+		preOrder(node.left);
+		preOrder(node.right);
+	}
+
+	public static void main(String[] args) {
+		LinkedList linkedList = new LinkedList();
+
+		linkedList.push(7);
+		linkedList.push(6);
+		linkedList.push(5);
+		linkedList.push(4);
+		linkedList.push(3);
+		linkedList.push(2);
+		linkedList.push(1);
+
+		System.out.println("Given Linked List ");
+		linkedList.printList(head);
+
+		TNode root = linkedList.sortedListToBST();
+		System.out.println("");
+		System.out.println("Pre-Order Traversal of constructed BST ");
+		linkedList.preOrder(root);
+	}
+}
+
