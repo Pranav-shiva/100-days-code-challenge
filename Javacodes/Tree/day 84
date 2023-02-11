@@ -1,0 +1,91 @@
+
+// java code Convert Binary Tree to Doubly Linked List by keeping track of visited node
+import java.util.Stack;
+
+class Node {
+	int data;
+	Node left;
+	Node right;
+
+	public Node(int data) {
+		this.data = data;
+		left = null;
+		right = null;
+	}
+}
+
+public class Main {
+	static Node bToDLL(Node root) {
+		Stack<Pair<Node, Integer>> s = new Stack<>();
+		s.push(new Pair<>(root, 0));
+		boolean flag = true;
+		Node head = null;
+		Node prev = null;
+		while (!s.empty()) {
+			Pair<Node, Integer> x = s.pop();
+			Node t = x.getKey();
+			int state = x.getValue();
+			if (state == 3 || t == null) {
+				continue;
+			}
+			s.push(new Pair<>(t, state + 1));
+			if (state == 0) {
+				s.push(new Pair<>(t.left, 0));
+			} else if (state == 1) {
+				if (prev != null) {
+					prev.right = t;
+				}
+				t.left = prev;
+				prev = t;
+				if (flag) {
+					head = t;
+					flag = false;
+				}
+			} else if (state == 2) {
+				s.push(new Pair<>(t.right, 0));
+			}
+		}
+		return head;
+	}
+
+	static void printList(Node head) {
+		while (head != null) {
+			System.out.print(head.data + " ");
+			head = head.right;
+		}
+	}
+
+	public static void main(String[] args)
+	{
+	
+		Node root = new Node(10);
+		root.left = new Node(12);
+		root.right = new Node(15);
+		root.left.left = new Node(25);
+		root.left.right = new Node(30);
+		root.right.left = new Node(36);
+
+		Node head = bToDLL(root);
+
+		printList(head);
+	}
+}
+
+class Pair<K, V> {
+	private K key;
+	private V value;
+
+	public Pair(K key, V value) {
+		this.key = key;
+		this.value = value;
+	}
+
+	public K getKey() {
+		return key;
+	}
+
+	public V getValue() {
+		return value;
+	}
+}
+
