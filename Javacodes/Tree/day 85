@@ -1,0 +1,80 @@
+// Java code to convert a given  BST to Max Heap
+import java.util.*;
+
+class Tree
+{
+
+static int i;
+static class Node
+{
+	int data;
+	Node left, right;
+};
+
+static Node getNode(int data)
+{
+	Node newNode = new Node();
+	newNode.data = data;
+	newNode.left = newNode.right = null;
+	return newNode;
+}
+
+static void inorderTraversal(Node root, Vector<Integer> arr)
+{
+	if (root == null)
+		return;
+	inorderTraversal(root.left, arr);
+	arr.add(root.data);
+	inorderTraversal(root.right, arr);
+}
+
+static void BSTToMaxHeap(Node root, Vector<Integer> arr)
+{
+	if (root == null)
+		return;
+	BSTToMaxHeap(root.left, arr);
+	BSTToMaxHeap(root.right, arr);
+
+	root.data = arr.get(i++);
+}
+
+static void convertToMaxHeapUtil(Node root)
+{
+	// nodes of the BST
+	Vector<Integer> arr = new Vector<Integer>();
+	int i = -1;
+
+	inorderTraversal(root, arr);
+
+	BSTToMaxHeap(root, arr);
+}
+
+static void postorderTraversal(Node root)
+{
+	if (root == null)
+		return;
+
+	postorderTraversal(root.left);
+
+	postorderTraversal(root.right);
+
+	System.out.print(root.data + " ");
+}
+
+public static void main(String[] args)
+{
+	Node root = getNode(4);
+	root.left = getNode(2);
+	root.right = getNode(6);
+	root.left.left = getNode(1);
+	root.left.right = getNode(3);
+	root.right.left = getNode(5);
+	root.right.right = getNode(7);
+
+	convertToMaxHeapUtil(root);
+	System.out.print("Postorder Traversal of Tree:" +"\n");
+	postorderTraversal(root);
+
+}
+}
+
